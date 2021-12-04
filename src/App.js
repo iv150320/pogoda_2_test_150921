@@ -1,36 +1,74 @@
 import React from "react";
-import Info from "./components/info"
+
 import Form from "./components/form";
 import Weather from "./components/weather";
 import Reset1 from "./components/reset1";
 import './App.css';
-import './index.css'
-import pic1 from './img/cloudy.png'
+import './index.css';
+import sun_pic from './img/sun.png';
+import strom_pic from './img/strom.png';
+import rain_pic from './img/rain.png';
+import partly_cloudy_pic from './img/partly_cloudy.png';
+import cloud_pic from './img/cloud.png';
+
 
 
 const API_KEY = "d5ed01a09a03b913e5cc79871b8c2a5a"; {/* http://api.openweathermap.org/data/2.5/weather?q=Kiev,ua&appid=d5ed01a09a03b913e5cc79871b8c2a5a&units=metric */}
 
+
+
+
+
 class App extends React.Component {
 
 
+  constructor(props){
+    super(props);
+    this.state = {
+      style_C: "Rectangle_2_blur_on",
+      style_F: "Rectangle_3_blur_off",
+      text_f: "text_f_off",
+      text_c: "text_c_on",
+
+      
+      temp: undefined,
 
 
-  state = {
-    temp: undefined,
-    temp_min: undefined,
-    temp_max: undefined,
-    city: undefined,
-    country: undefined,
-    pressure: undefined,
-    sunset: undefined,
-    humidity: undefined,
-    visibility: undefined,
-    wind: undefined,
-    clouds: undefined,
-    sunrise: undefined,
+      temp_с: undefined,
+      temp_f: undefined,
+      
 
-    error: undefined
+
+
+
+      temp_min: undefined,
+      temp_max: undefined,
+      city: undefined,
+      country: undefined,
+      pressure: undefined,
+      sunset: undefined,
+      humidity: undefined,
+      visibility: undefined,
+      wind: undefined,
+      clouds: undefined,
+      sunrise: undefined,      
+      rain: undefined,
+      weather_description: undefined,      
+      windDirection_1: undefined,
+  
+      _pic: undefined,
+
+
+      error: undefined   
+
+    };
+
+
+    this.style_C_handler = this.style_C_handler.bind(this);
+    this.style_F_handler = this.style_F_handler.bind(this);
+
   }
+
 
   gettingWeather = async (e) => {
 
@@ -43,7 +81,7 @@ class App extends React.Component {
     if(city) {
 
       const api_url = await
-      fetch(`http://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${API_KEY}&units=metric`);
+      fetch(`https://api.openweathermap.org/data/2.5/weather?q=${city}&lang=ru&appid=${API_KEY}&units=metric`);
       const data = await api_url.json();
 
       //конвертировал секунды из Апи в нормальный формат времени
@@ -54,22 +92,124 @@ class App extends React.Component {
 
       let sunrise1 = data.sys.sunrise;
       let sunrise2 = new Date(sunrise1*1000);
-      let sunrise3 = sunrise2.toLocaleTimeString();           
+      let sunrise3 = sunrise2.toLocaleTimeString();
+
+      let temp_c = data.main.temp + "º";
+      let temp_f = (data.main.temp*9/5) + 32 + "º";
+
+
+
+
+
+      let windDegree = data.wind.deg;
+      let windDirection;
+      
+      switch (true) {
+          case (337.5 <= windDegree  || windDegree <= 22.5):
+              windDirection = 'северный';
+              console.log('северный');
+              break;
+          case (22.6 <= windDegree &&  windDegree <= 67.5):
+              windDirection = 'северо-восточный';
+              console.log('северо-восточный');
+              break;
+          case (67.6 <= windDegree &&  windDegree <=  112.5):
+              windDirection = 'восточный';
+              console.log('восточный');
+              break;
+          case (112.6 <= windDegree &&  windDegree <=  157.5):
+              windDirection = 'юго-восточный';
+              console.log('юго-восточный');
+              break;
+          case (157.6 <= windDegree &&  windDegree <=  202.5):
+              windDirection = 'южный';
+              console.log('южный');
+              break;
+          case (202.6 <= windDegree &&  windDegree <=  247.5):
+              windDirection = 'юго-западный';
+              console.log('юго-западный');
+              break;
+          case (247.6 <= windDegree &&  windDegree <=  292.5):
+              windDirection = 'западный';
+              console.log('западный');
+              break;
+          case (292.6 <= windDegree &&  windDegree <=  357.4):
+              windDirection = 'северо-западный';
+              console.log('северо-западный');
+              break;
+      
+          default:
+              windDirection = 'непредсказуемый';
+              console.log('непредсказуемый');
+              break;
+      }
+
+
+
+      let w_descriprion = data.weather[0].description;
+      let pic_main;
+
+      switch(true) {
+
+        case(w_descriprion === 'ясно'):
+        pic_main = sun_pic;
+        break;
+
+        case(w_descriprion === 'облачно с прояснениями' || w_descriprion === 'переменная облачность' || w_descriprion === 'небольшая облачность'):
+        pic_main = partly_cloudy_pic;
+        break;
+
+        case(w_descriprion === 'пасмурно'):
+        pic_main = cloud_pic;
+        break;
+
+        case(w_descriprion === 'дождь' || w_descriprion === 'небольшая морось' || w_descriprion === 'снег'   ):
+        pic_main = rain_pic;
+        break;
+
+        case(w_descriprion === 'гроза'):
+        pic_main = strom_pic;
+        break;
+
+        default:
+          pic_main = partly_cloudy_pic;
+        break;     
+
+      }
+
+      
+      
 
     this.setState({
 
-      temp: data.main.temp,
+
+      temp: data.main.temp + "º",
+
+      
+      temp_c: data.main.temp + "º",
+      temp_f: (data.main.temp*9/5) + 32 + "º",
+
+
       temp_min: data.main.temp_min,
       temp_max: data.main.temp_max,
       city: data.name,
       country: data.sys.country,
-      pressure: data.main.pressure,
+      pressure: data.main.pressure + " мм рт. ст.",
       sunset: sunset3,
-      humidity: data.main.humidity,
+      humidity: data.main.humidity + "%",
       visibility: data.visibility,
-      wind: data.wind.speed,
+      wind: data.wind.speed + " м/c," ,
       clouds: data.clouds.all,
-      sunrise: sunrise3,     
+      sunrise: sunrise3,      
+      rain: "10%",
+      weather_description: data.weather[0].description.toUpperCase(),
+      windDirection_1: windDirection,
+      _pic: pic_main,
+
+      style_C: "Rectangle_2_blur_on",
+      style_F: "Rectangle_3_blur_off",
+      text_f: "text_f_off",
+      text_c: "text_c_on",
 
       error: undefined
 
@@ -80,8 +220,14 @@ class App extends React.Component {
     else {
 
       this.setState({
+
   
         temp: undefined,
+
+        temp_с: undefined,
+        temp_f: undefined,
+
+
         temp_min: undefined,
         temp_max: undefined,
         city: undefined,
@@ -93,6 +239,11 @@ class App extends React.Component {
         wind: undefined,
         clouds: undefined,
         sunrise: undefined,
+        rain: undefined,
+        weather_description: undefined,
+        windDirection_1: undefined,
+
+        _pic: undefined,
         
   
         error: "Введите название города"
@@ -103,73 +254,141 @@ class App extends React.Component {
     
 }
 
-clickreset1 = () => {
- 
-   console.log('сброс - проверка');
- 
-   this.setState({
- 
-     temp: undefined,
-     temp_min: undefined,
-     temp_max: undefined,
-     city: undefined,
-     country: undefined,
-     pressure: undefined,
-     sunset: undefined,
-     humidity: undefined,
-     visibility: undefined,
-     wind: undefined,
-     clouds: undefined,
-     sunrise: undefined,     
- 
-     error: "Сброс выполнен"
- 
-     });
- 
- }; 
 
 
 
- go888 = () => {
 
-  console.log('Вот так передали обработчик в компонент Info и через пропсы приняли там');
-};
+
+ 
+    style_C_handler(){
+
+
+
+      console.log('style_C_handler');
+
+      this.setState({
+
+        style_C: "Rectangle_2_blur_on",
+        style_F: "Rectangle_3_blur_off",
+        text_f: "text_f_off",
+        text_c: "text_c_on",
+
+        temp: this.state.temp_c
+
+   
+      });
+    };
+
+
+
+
+      style_F_handler(){
+
+      
+     
+
+      
+
+      console.log('style_F_handler');
+
+      this.setState({
+
+        style_C: "Rectangle_2_blur_off",
+        style_F: "Rectangle_3_blur_on",
+        text_f: "text_f_on",
+        text_c: "text_c_off",
+
+        temp: this.state.temp_f
+    
+      });
+    };
+
+
+
+
+
+
+
+
+
+
+
+
+
+ /*go888 = () => { console.log('Вот так передали обработчик в компонент Info и через пропсы приняли там'); };*/ 
 
 
 
 
 render() { 
 
+
+
+
+
+
 return (
+
+
 
 <div className="fon_main">
 
-<Form weatherMethod={this.gettingWeather} />
+<form onSubmit={this.gettingWeather} className="tablo_vvod_forma">
+
+
+<input className="tablo_vvod_text" type="text" name="city" placeholder="Введите город" />
+
+
+<button className="tablo_vvod_knopka">ОК</button>
+
+</form>
 
 
 
-<Weather
-
-temp={this.state.temp}
-temp_min = {this.state.temp_min}
-temp_max = {this.state.temp_max}
-city={this.state.city}
-country={this.state.country}
-pressure={this.state.pressure}
-sunset={this.state.sunset}
-humidity={this.state.humidity}
-visibility={this.state.visibility}
-wind={this.state.wind}
-clouds = {this.state.clouds}
-sunrise = {this.state.sunrise}
-
-error={this.state.error}
-
-/>
 
 
-<Info  go888={this.go888} />  {/* !!! Вот так передали обработчик в компонент Info и через пропсы приняли там*/ }
 
+<div className="pogoda_komment_logo">    
+
+    <img src={this.state._pic}></img>
+</div>
+
+<a className="pogoda_komment_gradusy">&emsp; &emsp;{this.state.temp}  </a>
+
+<a className="pogoda_komment_text"> {this.state.weather_description}</a>
+
+<a className="veter">Ветер</a>
+
+<a className="veter_komment"> {this.state.wind} {this.state.windDirection_1}</a>
+
+<a className="davlenie">Давление</a>
+
+<a className="davlenie_komment">{this.state.pressure }</a>
+
+<a className="vlaga">Влажность</a>
+
+<a className="vlaga_komment"> {this.state.humidity} </a>
+
+<a className="rain">Вероятность дождя</a>
+
+<a className="rain_komment">{this.state.rain}</a>
+
+    
+    
+<a className={this.state.text_c}>C</a>
+
+
+<a className={this.state.text_f}>F</a>    
+
+
+
+<a className="forma_knopka_g_f"></a>
+
+<a className="gradus">º</a>
+
+<a onClick={this.style_C_handler} className={this.state.style_C} ></a>
+
+<a onClick={this.style_F_handler} className={this.state.style_F}></a>
 
 
 
@@ -178,6 +397,9 @@ error={this.state.error}
 
 
 </div>
+
+
+
 
     );
   }
