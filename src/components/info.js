@@ -1,5 +1,7 @@
 import React from "react";
 
+import _style from "react"
+
 
 import pic1 from '../img/cloudy.png'
 
@@ -46,11 +48,11 @@ const Info = (props) => (
 
 <a className="gradus">º</a>
 
-<a onClick={props.go888} className="Rectangle_2" ></a>
+<a   onClick={props.go888} className="Rectangle_2" ></a>
 
 <a className="Rectangle_3"></a>
  
-
+<button style={props._style}  onClick={props.handlerButtonOnClick} >Down</button>
 
 
 
