@@ -12,6 +12,13 @@ body {
 }
 
 
+.hidden_1 {
+
+visibility: hidden;
+
+}
+
+
 
 
 .fon888 {
@@ -75,6 +82,141 @@ color: #FFFFFF;
 
 
 
+
+.city_menu {
+
+
+/* город */
+
+
+position: absolute;
+left: 7.25%;
+right: 65.08%;
+top: 7.32%;
+bottom: 83.4%;
+
+}
+
+.city_name {
+
+/* Омск */
+
+
+position: absolute;
+left: 0%;
+right: 66.93%;
+top: 0%;
+bottom: 36.84%;
+
+font-family: 'Lato', sans-serif;
+font-style: normal;
+font-weight: normal;
+font-size: 50px;
+line-height: 60px;
+/* identical to box height */
+
+
+color: #FFFFFF;
+
+}
+
+
+.change_city {
+
+  position: absolute;
+  left: 0.53%;
+  right: 64.55%;
+  top: 72.63%;
+  bottom: 4.21%;
+  
+  font-family: 'Lato', sans-serif;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 18px;
+  line-height: 22px;
+  /* identical to box height */
+
+
+  cursor: pointer;  
+  
+  color: #FFFFFF;
+  
+  mix-blend-mode: normal;
+  opacity: 0.6;
+
+}
+
+
+.current_location {
+
+/* Мое местоположение */
+
+
+position: absolute;
+left: 51.06%;
+right: 0%;
+top: 72.63%;
+bottom: 4.21%;
+
+font-family: 'Lato', sans-serif;
+font-style: normal;
+font-weight: normal;
+font-size: 18px;
+line-height: 22px;
+/* identical to box height */
+
+
+color: #FFFFFF;
+
+mix-blend-mode: normal;
+opacity: 0.6;
+
+}
+
+
+
+.location_logo_parent {
+
+
+/* location */
+
+
+position: absolute;
+left: 42.06%;
+right: 50%;
+top: 68.42%;
+bottom: 0%;
+
+
+
+}
+
+
+
+
+.location_logo_child {
+
+/* Path 2 */
+
+
+position: absolute;
+left: 26.29%;
+right: 24.13%;
+top: 10%;
+bottom: 22.08%;
+
+
+transform: rotate(11deg);
+background-image: url(./img/location_pic.png);
+
+}
+
+
+
+
+
+
+
 .tablo_vvod_forma {
 
   position: absolute;
@@ -88,6 +230,8 @@ color: #FFFFFF;
   background: #FFFFFF;
   box-shadow: 0px 2px 8px rgba(0, 0, 0, 0.15);
   border-radius: 8px;
+
+
 
 }
 
@@ -105,6 +249,7 @@ color: #FFFFFF;
   font-size: 30px;
   line-height: 36px;  
   color: #000000;
+  border: none;
 
 }
 
@@ -125,6 +270,8 @@ color: #FFFFFF;
   background: none;
   color: #1086FF;
   border: none;
+
+  cursor: pointer;
   
 
 }
@@ -405,7 +552,7 @@ background: rgba(255, 255, 255, 0.2);
 
   /* С */
 
-.text_c {
+.text_c_on {
 
 
   position: absolute;
@@ -420,12 +567,41 @@ background: rgba(255, 255, 255, 0.2);
   line-height: 22px;  
   color: #FFFFFF;
 
+  opacity: 1; /* Меняем тут прозрачность */      
+
 }
 
 
-    /* F */
 
-    .text_f {
+  /* С */
+
+  .text_c_off {
+
+
+    position: absolute;
+    height: 22px;
+    left: 89.9%;
+    right: 9.15%;
+    top: calc(50% - 22px/2 - 416px);  
+     font-family: 'Lato', sans-serif;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 18px;
+    line-height: 22px;  
+    color: #FFFFFF;
+  
+    opacity: 0.4; /* Меняем тут прозрачность */      
+  
+  }
+
+
+
+
+
+
+
+    /* F */
+    .text_f_on {
       
       position: absolute;
       height: 22px;
@@ -444,11 +620,38 @@ background: rgba(255, 255, 255, 0.2);
       color: #FFFFFF;
       
       mix-blend-mode: normal;
-      opacity: 0.4;
-
-      
+      opacity: 1; /* Меняем тут прозрачность */      
       
       }
+
+
+          /* F */
+    .text_f_off {
+      
+      position: absolute;
+      height: 22px;
+      left: 92.68%;
+      right: 6.52%;
+      top: calc(50% - 22px/2 - 416px);
+      
+      font-family: 'Lato', sans-serif;
+      font-style: normal;
+      font-weight: normal;
+      font-size: 18px;
+      line-height: 22px;
+      /* identical to box height */
+      
+      
+      color: #FFFFFF;
+      
+      mix-blend-mode: normal;
+      opacity: 0.4; /* Меняем тут прозрачность */      
+      
+      }
+
+
+
+
 
 
 /* º */
@@ -511,7 +714,7 @@ bottom: 89.26%;
 
 
 
-.Rectangle_2{
+.Rectangle_2_blur_on{
 
 /* Rectangle 2 */
 
@@ -530,6 +733,31 @@ border-bottom-left-radius: 8px;
 cursor: pointer;
 
 }
+
+
+.Rectangle_2_blur_off{
+
+  /* Rectangle 2 */
+  
+  
+  position: absolute;
+  left: 88.87%;
+  right: 8.33%;
+  top: 7.91%;
+  bottom: 89.26%;
+ 
+
+  
+  border-top-left-radius: 8px;
+  border-bottom-left-radius: 8px;
+  
+  cursor: pointer;
+  
+  }
+
+
+
+
 
 
 
@@ -553,7 +781,7 @@ box-sizing: border-box;
 
 
 
-.Rectangle_3{
+.Rectangle_3_blur_on{
 
   /* Rectangle 3 */
   
@@ -567,5 +795,56 @@ box-sizing: border-box;
   background: rgba(255, 255, 255, 0.2);
   border-top-right-radius: 8px;
   border-bottom-right-radius: 8px;
+
+  cursor: pointer;
   
   }
+
+
+  .Rectangle_3_blur_off{
+
+    /* Rectangle 3 */
+    
+    
+    position: absolute;
+    left: 91.73%;
+    right: 5.47%;
+    top: 7.91%;
+    bottom: 89.26%;
+  
+    border-top-right-radius: 8px;
+    border-bottom-right-radius: 8px;
+
+    cursor: pointer;
+    
+    }
+
+
+
+
+
+
+
+
+
+  .knopka_test{
+
+ 
+  color: wheat;  
+    
+  
+    
+    }
+
+
+
+    
+
+  .knopka_test_2{
+
+ 
+    color: red;  
+      
+    
+      
+      }
