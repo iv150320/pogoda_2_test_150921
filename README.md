@@ -38,26 +38,26 @@ This React application follows a standard component-based architecture orchestra
 
 ```mermaid
 graph TD
-    A[🌐 public/index.html - Initial Render] --> B[⚛️ src/index.js - React Entry Point];
-    B --> C{📦 src/App.js - Main Application Container};
+    A["🌐 public/index.html - Initial Render"] --> B["⚛️ src/index.js - React Entry Point"];
+    B --> C{"📦 src/App.js - Main Application Container"};
 
     subgraph React Application Flow
-        C -- Renders --> D[📝 src/components/form.js - Location Input];
-        C -- Renders --> E[☀️ src/components/weather.js - Weather Display];
-        C -- Renders --> F[💡 src/components/info.js - Status/Messages];
-        C -- Renders --> G[🔄 src/components/reset1.js - Clear/Reset Button];
+        C -- Renders --> D["📝 src/components/form.js - Location Input"];
+        C -- Renders --> E["☀️ src/components/weather.js - Weather Display"];
+        C -- Renders --> F["💡 src/components/info.js - Status/Messages"];
+        C -- Renders --> G["🔄 src/components/reset1.js - Clear/Reset Button"];
 
         D -- User Input (City Name) --> C;
-        C -- (Asynchronous Call) --> H(🌍 External Weather API);
+        C -- (Asynchronous Call) --> H("🌍 External Weather API");
         H -- Weather Data (JSON) --> C;
         C -- Updates State & Passes Props --> E;
         C -- Updates State & Passes Props --> F;
         G -- Trigger Reset Event --> C;
     end
 
-    I[🖼️ src/img/ - Static Image Assets]
-    J[⚙️ src/serviceWorker.js - PWA Capabilities]
-    K[📄 public/manifest.json - PWA Metadata]
+    I["🖼️ src/img/ - Static Image Assets"]
+    J["⚙️ src/serviceWorker.js - PWA Capabilities"]
+    K["📄 public/manifest.json - PWA Metadata"]
 
     C -- Utilizes --> I;
     B -- Registers --> J;
